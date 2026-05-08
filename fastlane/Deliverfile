@@ -1,0 +1,17 @@
+app_identifier("com.tanaltay.goalyn")
+
+# Where the metadata files live.
+metadata_path("./fastlane/metadata")
+screenshots_path("./fastlane/screenshots")
+
+# Don't try to push a binary unless explicitly asked.
+skip_binary_upload(true)
+
+# Don't auto-release after Apple approves; the team prefers manual release.
+automatic_release(false)
+
+# We currently ship two locales: Traditional + Simplified Chinese.
+languages(["zh-Hant", "zh-Hans"])
+
+# Don't run precheck on IAPs (none in the app).
+precheck_include_in_app_purchases(false)

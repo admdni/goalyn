@@ -1,0 +1,5 @@
+app_identifier("com.tanaltay.goalyn")
+team_id("LFHCZQT89K")
+
+# App Store Connect API key — credentials supplied via environment in CI.
+# Locally, the AuthKey_<KEY_ID>.p8 file lives in the project root.
