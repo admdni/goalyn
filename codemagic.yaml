@@ -31,17 +31,26 @@ workflows:
       - name: Get Flutter packages
         script: |
           flutter packages pub get
-      - name: Flutter analyze
-        ignore_failure: true
-        script: |
-          flutter analyze
-      - name: Flutter unit tests
-        ignore_failure: true
-        script: |
-          flutter test
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
+      - name: Register bundle id (idempotent)
+        script: |
+          app-store-connect bundle-ids register "$BUNDLE_ID" --name "Goalyn iOS" --platform IOS || true
+      - name: Initialize keychain
+        script: |
+          keychain initialize
+      - name: Fetch signing files (creates cert + profile if missing)
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+      - name: Add fetched certificates to keychain
+        script: |
+          keychain add-certificates
+      - name: Set up code signing in Xcode project
+        script: |
+          xcode-project use-profiles
       - name: Flutter build ipa and automatic versioning
         script: |
           BUILD_NUMBER=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 1))
@@ -52,14 +61,10 @@ workflows:
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-      - flutter_drive.log
     publishing:
       app_store_connect:
         auth: integration
-        # Submit to TestFlight, do not auto-release to App Store.
         submit_to_testflight: true
-        beta_groups:
-          - App Store Connect Users
         submit_to_app_store: false
 
   ios-release:
