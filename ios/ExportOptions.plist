@@ -7,7 +7,14 @@
     <key>teamID</key>
     <string>LFHCZQT89K</string>
     <key>signingStyle</key>
-    <string>automatic</string>
+    <string>manual</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.tanaltay.goalyn</key>
+        <string>com.tanaltay.goalyn AppStore</string>
+    </dict>
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
     <key>uploadBitcode</key>
     <false/>
     <key>uploadSymbols</key>

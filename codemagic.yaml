@@ -3,14 +3,14 @@ workflows:
     name: Goalyn — TestFlight
     max_build_duration: 90
     instance_type: mac_mini_m2
-    integrations:
-      app_store_connect: goalyan
     environment:
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
         BUNDLE_ID: "com.tanaltay.goalyn"
         XCODE_WORKSPACE: "Runner.xcworkspace"
         XCODE_SCHEME: "Runner"
+      groups:
+        - app_store_credentials
       flutter: stable
       xcode: latest
       cocoapods: default
@@ -33,11 +33,13 @@ workflows:
           find . -name "Podfile" -execdir pod install \;
       - name: Register bundle id (idempotent)
         script: |
-          app-store-connect bundle-ids register "$BUNDLE_ID" --name "Goalyn iOS" --platform IOS || true
+          app-store-connect bundle-ids register "$BUNDLE_ID" \
+            --name "Goalyn iOS" \
+            --platform IOS || true
       - name: Initialize keychain
         script: |
           keychain initialize
-      - name: Fetch signing files (creates cert + profile if missing)
+      - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" \
             --type IOS_APP_STORE \
@@ -48,35 +50,37 @@ workflows:
       - name: Set up code signing in Xcode project
         script: |
           xcode-project use-profiles
-      - name: Flutter build ipa and automatic versioning
+      - name: Flutter build ipa with auto-incremented build number
         script: |
           BUILD_NUMBER=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 1))
           flutter build ipa --release \
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER \
             --export-options-plist=/Users/builder/export_options.plist
+      - name: Upload to TestFlight
+        script: |
+          app-store-connect publish \
+            --path "build/ios/ipa/*.ipa" \
+            --testflight \
+            --beta-group "App Store Connect Users" || \
+          app-store-connect publish \
+            --path "build/ios/ipa/*.ipa" \
+            --testflight
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        submit_to_app_store: false
 
   ios-release:
-    name: Goalyn — App Store release (metadata + binary)
+    name: Goalyn — App Store metadata + binary
     max_build_duration: 120
     instance_type: mac_mini_m2
-    integrations:
-      app_store_connect: goalyan
     environment:
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
         BUNDLE_ID: "com.tanaltay.goalyn"
-        XCODE_WORKSPACE: "Runner.xcworkspace"
-        XCODE_SCHEME: "Runner"
         LANG: "en_US.UTF-8"
+      groups:
+        - app_store_credentials
       flutter: stable
       xcode: latest
       cocoapods: default
@@ -88,40 +92,40 @@ workflows:
         - pattern: 'v*'
           include: true
     scripts:
-      - name: Set up local.properties
-        script: |
-          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Flutter pub get
         script: |
           flutter packages pub get
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
-      - name: Install fastlane
+      - name: Initialize keychain & fetch signing files
         script: |
-          gem install bundler
-          gem install fastlane -v 2.224.0 --no-document
-      - name: Flutter build ipa with auto-incremented build number
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Build IPA
         script: |
           BUILD_NUMBER=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 1))
           flutter build ipa --release \
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER \
             --export-options-plist=/Users/builder/export_options.plist
+      - name: Install fastlane
+        script: |
+          gem install bundler
+          gem install fastlane -v 2.224.0 --no-document
       - name: Push App Store metadata via Fastlane
         script: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8
           export APP_STORE_CONNECT_API_KEY_KEY_ID="$APP_STORE_CONNECT_KEY_IDENTIFIER"
           export APP_STORE_CONNECT_API_KEY_ISSUER_ID="$APP_STORE_CONNECT_ISSUER_ID"
-          export APP_STORE_CONNECT_API_KEY_PATH="$CM_BUILD_DIR/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
-          if [ ! -f "$APP_STORE_CONNECT_API_KEY_PATH" ] && [ -n "$APP_STORE_CONNECT_PRIVATE_KEY" ]; then
-            echo "$APP_STORE_CONNECT_PRIVATE_KEY" > "$APP_STORE_CONNECT_API_KEY_PATH"
-          fi
-          bundle exec fastlane ios upload_metadata || fastlane ios upload_metadata
+          export APP_STORE_CONNECT_API_KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+          fastlane ios upload_metadata
+      - name: Upload binary to TestFlight
+        script: |
+          app-store-connect publish --path "build/ios/ipa/*.ipa" --testflight
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        submit_to_app_store: false
