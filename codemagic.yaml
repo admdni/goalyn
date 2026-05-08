@@ -6,9 +6,6 @@ workflows:
     integrations:
       app_store_connect: goalyn
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.tanaltay.goalyn
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
         BUNDLE_ID: "com.tanaltay.goalyn"
@@ -74,9 +71,6 @@ workflows:
     integrations:
       app_store_connect: goalyn
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.tanaltay.goalyn
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
         BUNDLE_ID: "com.tanaltay.goalyn"
