@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 90
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: goalyn
+      app_store_connect: goalyan
     environment:
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
@@ -69,7 +69,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: goalyn
+      app_store_connect: goalyan
     environment:
       vars:
         APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
