@@ -67,11 +67,20 @@ workflows:
             --export-options-plist=/Users/builder/export_options.plist
       - name: Upload to TestFlight
         script: |
+          # altool (used internally by `app-store-connect publish`) reads the
+          # API key from disk, not from the environment, so write it to the
+          # location it searches.
+          mkdir -p ~/.appstoreconnect/private_keys
+          P8="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+          printf '%s' "$APP_STORE_CONNECT_PRIVATE_KEY" > "$P8"
+          chmod 600 "$P8"
+
           IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
           echo "Uploading $IPA_FILE"
           app-store-connect publish \
             --path "$IPA_FILE" \
-            --testflight
+            --testflight \
+            --enable-package-validation
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
