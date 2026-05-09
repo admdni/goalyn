@@ -57,16 +57,12 @@ workflows:
       - name: Set up code signing in Xcode project
         script: |
           xcode-project use-profiles
-      - name: Flutter build ipa with auto-incremented build number
+      - name: Flutter build ipa with timestamp build number
         script: |
-          # Pull both App Store and TestFlight build numbers and pick the
-          # higher one — TestFlight uploads are not visible to the App Store
-          # endpoint, so relying on it alone causes ENTITY_ERROR.DUPLICATE.
-          STORE_BN=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" 2>/dev/null || echo 0)
-          TF_BN=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID" 2>/dev/null || echo 0)
-          MAX_BN=$(( STORE_BN > TF_BN ? STORE_BN : TF_BN ))
-          BUILD_NUMBER=$(( MAX_BN + 1 ))
-          echo "App Store BN=$STORE_BN, TestFlight BN=$TF_BN, picking $BUILD_NUMBER"
+          # Use Unix timestamp as build number — guarantees monotonic increase
+          # and avoids ENTITY_ERROR.DUPLICATE caused by stale Apple records.
+          BUILD_NUMBER=$(date +%s)
+          echo "Build number: $BUILD_NUMBER"
           flutter build ipa --release \
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER \
