@@ -67,12 +67,10 @@ workflows:
             --export-options-plist=/Users/builder/export_options.plist
       - name: Upload to TestFlight
         script: |
+          IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
+          echo "Uploading $IPA_FILE"
           app-store-connect publish \
-            --path "build/ios/ipa/*.ipa" \
-            --testflight \
-            --beta-group "App Store Connect Users" || \
-          app-store-connect publish \
-            --path "build/ios/ipa/*.ipa" \
+            --path "$IPA_FILE" \
             --testflight
     artifacts:
       - build/ios/ipa/*.ipa
