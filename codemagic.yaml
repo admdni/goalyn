@@ -79,20 +79,22 @@ workflows:
             --path "$IPA_FILE" \
             --testflight \
             --enable-package-validation
-      - name: Push metadata + screenshots via Fastlane
+      - name: Push metadata + screenshots (App Store Connect API, no fastlane)
         script: |
           set -e
-          # Restore p8 — Fastfile's load_api_key lane reads it from disk.
+          # Restore p8 to disk for the Python uploader.
           mkdir -p ~/.appstoreconnect/private_keys
           P8="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
           if [ ! -f "$P8" ]; then
             python3 -c "import os, sys; v=os.environ['APP_STORE_CONNECT_PRIVATE_KEY'].replace('\\\\n','\\n'); open(sys.argv[1],'w').write(v)" "$P8"
             chmod 600 "$P8"
           fi
-          export APP_STORE_CONNECT_API_KEY_PATH="$P8"
-          # Codemagic mac instance ships fastlane already; no install needed.
-          fastlane ios upload_metadata || echo "metadata upload step warned"
-          fastlane ios upload_screenshots || echo "screenshot upload step warned"
+          # PyJWT is needed for the JWT signing in the script.
+          python3 -m pip install --quiet --user pyjwt cryptography || true
+          # Text metadata (name/subtitle/description/keywords/etc) — pure ASC HTTP API.
+          python3 scripts/asc_upload_metadata.py || echo "metadata upload step warned"
+          # Screenshots — pure ASC HTTP API.
+          python3 scripts/asc_upload_screenshots.py || echo "screenshot upload step warned"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -138,21 +140,25 @@ workflows:
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER \
             --export-options-plist=/Users/builder/export_options.plist
-      - name: Install fastlane
+      - name: Push metadata + screenshots (App Store Connect API)
         script: |
-          gem install bundler
-          gem install fastlane -v 2.224.0 --no-document
-      - name: Push App Store metadata via Fastlane
-        script: |
+          set -e
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8
-          export APP_STORE_CONNECT_API_KEY_KEY_ID="$APP_STORE_CONNECT_KEY_IDENTIFIER"
-          export APP_STORE_CONNECT_API_KEY_ISSUER_ID="$APP_STORE_CONNECT_ISSUER_ID"
-          export APP_STORE_CONNECT_API_KEY_PATH="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
-          fastlane ios upload_metadata
-      - name: Upload binary to TestFlight
+          P8="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+          if [ ! -f "$P8" ]; then
+            python3 -c "import os, sys; v=os.environ['APP_STORE_CONNECT_PRIVATE_KEY'].replace('\\\\n','\\n'); open(sys.argv[1],'w').write(v)" "$P8"
+            chmod 600 "$P8"
+          fi
+          python3 -m pip install --quiet --user pyjwt cryptography || true
+          python3 scripts/asc_upload_metadata.py || echo "metadata upload step warned"
+          python3 scripts/asc_upload_screenshots.py || echo "screenshot upload step warned"
+      - name: Upload binary to TestFlight (Codemagic native)
         script: |
-          app-store-connect publish --path "build/ios/ipa/*.ipa" --testflight
+          IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
+          app-store-connect publish \
+            --path "$IPA_FILE" \
+            --testflight \
+            --enable-package-validation
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
