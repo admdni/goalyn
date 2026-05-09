@@ -39,22 +39,22 @@ workflows:
       - name: Initialize keychain
         script: |
           keychain initialize
-      - name: Create distribution certificate (saves p12 + private key locally)
+      - name: Fetch (or create) signing files
         script: |
-          app-store-connect certificates create \
-            --type IOS_DISTRIBUTION \
-            --save \
-            --certificate-key-password "$CERTIFICATE_PASSWORD"
-      - name: Add certificate to keychain
+          # Generate a fresh RSA key to back the new distribution certificate.
+          openssl genrsa -out /tmp/cert_priv.key 2048
+
+          # `fetch-signing-files` issues both the certificate and the App Store
+          # provisioning profile when `--create` is set, using the key above
+          # as the certificate private key.
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --certificate-key=@file:/tmp/cert_priv.key \
+            --p12-password "$CERTIFICATE_PASSWORD" \
+            --create
+      - name: Add fetched certificates to keychain
         script: |
           keychain add-certificates --certificate-password "$CERTIFICATE_PASSWORD"
-      - name: Create provisioning profile
-        script: |
-          app-store-connect provisioning-profiles create \
-            --bundle-id "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --save \
-            --create-resource
       - name: Set up code signing in Xcode project
         script: |
           xcode-project use-profiles
