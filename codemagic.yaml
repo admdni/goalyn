@@ -41,17 +41,16 @@ workflows:
           keychain initialize
       - name: Fetch (or create) signing files
         script: |
-          # Generate a fresh RSA key to back the new distribution certificate.
+          set -ex
           openssl genrsa -out /tmp/cert_priv.key 2048
-
-          # `fetch-signing-files` issues both the certificate and the App Store
-          # provisioning profile when `--create` is set, using the key above
-          # as the certificate private key.
+          ls -la /tmp/cert_priv.key
+          echo "Bundle: $BUNDLE_ID, Key ID: $APP_STORE_CONNECT_KEY_IDENTIFIER"
           app-store-connect fetch-signing-files "$BUNDLE_ID" \
             --type IOS_APP_STORE \
             --certificate-key=@file:/tmp/cert_priv.key \
             --p12-password "$CERTIFICATE_PASSWORD" \
-            --create
+            --create \
+            --verbose
       - name: Add fetched certificates to keychain
         script: |
           keychain add-certificates --certificate-password "$CERTIFICATE_PASSWORD"
