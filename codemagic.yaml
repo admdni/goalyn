@@ -66,14 +66,24 @@ workflows:
             --export-options-plist=/Users/builder/export_options.plist
       - name: Upload to TestFlight
         script: |
-          set -e
+          set -ex
           IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
           echo "Uploading $IPA_FILE"
 
-          # Codemagic auto-injects APP_STORE_CONNECT_* env vars from the
-          # team integration that successfully signed earlier in this build,
-          # so app-store-connect's publish action can use the same auth.
-          app-store-connect publish --path "$IPA_FILE"
+          # altool reads the API key from a file under the names below, so
+          # restore the p8 from the secure environment variable to disk.
+          # Codemagic stores secure values with literal "\n" sequences, so
+          # convert them back to real newlines for PEM parsing.
+          mkdir -p ~/.appstoreconnect/private_keys ~/private_keys
+          P8="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+          python3 -c "import os, sys; v=os.environ['APP_STORE_CONNECT_PRIVATE_KEY'].replace('\\\\n','\\n'); open(sys.argv[1],'w').write(v)" "$P8"
+          chmod 600 "$P8"
+          cp "$P8" ~/private_keys/
+
+          # Use altool directly — most reliable on Codemagic.
+          xcrun altool --upload-app --type ios -f "$IPA_FILE" \
+            --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
+            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
