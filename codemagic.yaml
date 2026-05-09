@@ -67,7 +67,7 @@ workflows:
             --build-name=1.0.0 \
             --build-number=$BUILD_NUMBER \
             --export-options-plist=/Users/builder/export_options.plist
-      - name: Upload to TestFlight (Codemagic native)
+      - name: Upload IPA to App Store Connect (Codemagic native)
         script: |
           set -ex
           IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
@@ -75,9 +75,11 @@ workflows:
 
           # Codemagic CLI Tools — native App Store Connect publishing.
           # Reads APP_STORE_CONNECT_* env vars from the app_store_credentials group.
+          # NOTE: no --testflight flag — that triggers external beta review submission
+          # which requires Beta App Info (feedback email + contact). We only need the
+          # binary uploaded so it's selectable for App Store version review.
           app-store-connect publish \
             --path "$IPA_FILE" \
-            --testflight \
             --enable-package-validation
       - name: Push metadata + screenshots (App Store Connect API, no fastlane)
         script: |
@@ -152,12 +154,11 @@ workflows:
           python3 -m pip install --quiet --user pyjwt cryptography || true
           python3 scripts/asc_upload_metadata.py || echo "metadata upload step warned"
           python3 scripts/asc_upload_screenshots.py || echo "screenshot upload step warned"
-      - name: Upload binary to TestFlight (Codemagic native)
+      - name: Upload binary to App Store Connect (Codemagic native)
         script: |
           IPA_FILE=$(ls build/ios/ipa/*.ipa | head -1)
           app-store-connect publish \
             --path "$IPA_FILE" \
-            --testflight \
             --enable-package-validation
     artifacts:
       - build/ios/ipa/*.ipa
