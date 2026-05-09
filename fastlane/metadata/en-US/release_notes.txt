@@ -1,0 +1,5 @@
+‧ Brand-new editorial interface: serif headlines, single-column score sheet, easier on the eye.
+‧ Personal prediction center: pick scores before kickoff, log actuals after the final whistle.
+‧ Match notebook: write a private note on any fixture for tactics, key players, takeaways.
+‧ Kickoff reminders: gentle local alerts before the matches you care about.
+‧ Light and dark themes you can toggle from the home masthead.

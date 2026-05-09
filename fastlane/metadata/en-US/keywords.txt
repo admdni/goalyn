@@ -1,0 +1,1 @@
+football,soccer,score,fixture,predict,sport,scoreboard,reminder,notebook,fan,magazine

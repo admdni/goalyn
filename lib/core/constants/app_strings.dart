@@ -64,9 +64,9 @@ class AppStrings {
   // News
   static const String allNews = 'All';
   static const String transfers = 'Transfers';
-  static const String premierLeague = 'Premier League';
-  static const String championsLeague = 'Champions League';
-  static const String turkishFootball = 'Turkish Football';
+  static const String premierLeague = 'Top Flight';
+  static const String championsLeague = 'Continental Cup';
+  static const String turkishFootball = 'Anatoria';
   static const String worldFootball = 'World Football';
   static const String noNewsAvailable = 'No news available';
   static const String readMore = 'Read More';

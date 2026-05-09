@@ -79,9 +79,10 @@ class AppNetworkImage extends StatelessWidget {
   }
 }
 
-/// Editorial team monogram — a square with a thin border and serif initials.
-/// Renders text only; the [logoUrl] is intentionally ignored to preserve
-/// a magazine-style typography-first aesthetic.
+/// No-op placeholder. The previous editorial monogram looked too much like a
+/// real club crest, so it's been removed entirely. The widget collapses to an
+/// empty `SizedBox.shrink()` to preserve the existing constructor signatures
+/// without rendering anything.
 class TeamLogo extends StatelessWidget {
   final String? logoUrl;
   final String name;
@@ -98,107 +99,19 @@ class TeamLogo extends StatelessWidget {
     this.heroTag,
   });
 
-  String get _initials {
-    if (name.isEmpty) return '—';
-    final cleaned = name
-        .replaceAll(RegExp(r'^(FC|AC|AS|SC|SV|VfL|VfB|RB|UEFA)\s+'), '')
-        .replaceAll(RegExp(r'\s+(FC|AC|CF|SC|FK|JK|BK)$'), '')
-        .trim();
-    final words =
-        cleaned.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
-    if (words.isEmpty) return '—';
-    if (words.length == 1) {
-      return words.first.length >= 2
-          ? words.first.substring(0, 2).toUpperCase()
-          : words.first.toUpperCase();
-    }
-    return (words[0][0] + words[1][0]).toUpperCase();
-  }
-
   @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    final logo = Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: p.paper,
-        border: Border.all(color: p.line, width: 0.6),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        _initials,
-        style: TextStyle(
-          fontFamily: 'Georgia',
-          fontSize: size * 0.42,
-          height: 1.0,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.5,
-          color: p.textPrimary,
-        ),
-      ),
-    );
-
-    if (enableHero && heroTag != null) {
-      return Hero(
-        tag: heroTag!,
-        child: logo,
-      );
-    }
-    return logo;
-  }
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
-/// Compact editorial badge for a league or competition (text-only).
+/// No-op placeholder for the league badge. We only render typography now.
 class LeagueBadge extends StatelessWidget {
   final String name;
   final double size;
 
   const LeagueBadge({super.key, required this.name, this.size = 56});
 
-  String get _ticker {
-    final cleaned = name
-        .replaceAll(RegExp(r'^UEFA\s+'), '')
-        .replaceAll(RegExp(r'\s+League$'), 'L')
-        .trim();
-    final words =
-        cleaned.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
-    if (words.isEmpty) return '—';
-    if (words.length == 1) {
-      final w = words.first;
-      return w.length >= 3 ? w.substring(0, 3).toUpperCase() : w.toUpperCase();
-    }
-    return (words[0][0] +
-            words[1][0] +
-            (words.length > 2 ? words[2][0] : ''))
-        .toUpperCase();
-  }
-
   @override
-  Widget build(BuildContext context) {
-    final p = context.palette;
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: p.paper,
-        border: Border.all(color: p.line, width: 0.6),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        _ticker,
-        style: TextStyle(
-          fontFamily: 'Georgia',
-          fontStyle: FontStyle.italic,
-          fontSize: size * 0.30,
-          height: 1.0,
-          fontWeight: FontWeight.w700,
-          letterSpacing: -0.5,
-          color: p.accent,
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
 class LiveBadge extends StatelessWidget {

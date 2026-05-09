@@ -26,6 +26,7 @@ API = 'https://api.appstoreconnect.apple.com/v1'
 
 # App Store Connect locale codes used by the metadata folder names.
 LOCALES = {
+    'en-US': 'en-US',
     'zh-Hant': 'zh-Hant',
     'zh-Hans': 'zh-Hans',
 }

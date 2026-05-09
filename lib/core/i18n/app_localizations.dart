@@ -96,12 +96,12 @@ class AppLocalizations {
       'red_card': 'Red Card',
       'var_decision': 'VAR',
 
-      // News
+      // News (sample categories — fictional)
       'all_news': 'All',
       'transfers': 'Transfers',
-      'premier_league': 'Premier League',
-      'champions_league': 'Champions League',
-      'turkish_football': 'Turkish Football',
+      'premier_league': 'Top Flight',
+      'champions_league': 'Continental Cup',
+      'turkish_football': 'Anatoria',
       'world_football': 'World Football',
       'no_news': 'No news available',
       'latest_updates': 'Latest updates from around the world',
@@ -164,8 +164,8 @@ class AppLocalizations {
       'lost': 'L',
       'gd': 'GD',
       'pts': 'Pts',
-      'champions_league_zone': 'Champions League',
-      'europa_zone': 'Europa League',
+      'champions_league_zone': 'Top Cup',
+      'europa_zone': 'Series Cup',
       'relegation_zone': 'Relegation',
 
       // Team
@@ -539,9 +539,9 @@ class AppLocalizations {
       // News
       'all_news': '全部',
       'transfers': '转会',
-      'premier_league': '英超联赛',
-      'champions_league': '欧冠联赛',
-      'turkish_football': '土耳其足球',
+      'premier_league': '顶级联赛',
+      'champions_league': '洲际杯赛',
+      'turkish_football': '安纳托利亚',
       'world_football': '世界足球',
       'no_news': '暂无新闻',
       'latest_updates': '来自世界各地的最新动态',
@@ -604,8 +604,8 @@ class AppLocalizations {
       'lost': '负',
       'gd': '净胜',
       'pts': '积分',
-      'champions_league_zone': '欧冠区',
-      'europa_zone': '欧联区',
+      'champions_league_zone': '顶级杯赛区',
+      'europa_zone': '次级杯赛区',
       'relegation_zone': '降级区',
 
       // Team

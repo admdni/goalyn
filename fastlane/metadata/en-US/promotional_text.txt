@@ -1,0 +1,1 @@
+A magazine-style scoreboard built for fans: predict scores before kickoff, take private match notes, and never miss a game thanks to gentle local reminders.

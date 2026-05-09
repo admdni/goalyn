@@ -8,33 +8,38 @@ import '../features/league/data/models/standing_model.dart';
 class MockDataService {
   static final _random = Random();
 
+  // Demonstration data only — every team and competition below is fictional.
+  // Names, cities, stadiums and founding years are entirely invented for the
+  // sample experience. Remote logos are intentionally not used so screenshots
+  // never display third-party imagery.
+
   static final List<Map<String, dynamic>> _leagues = [
-    {'id': 39, 'name': 'Premier League', 'country': 'England', 'logo': 'https://media.api-sports.io/football/leagues/39.png', 'flag': 'https://media.api-sports.io/flags/gb.svg', 'season': 2024, 'type': 'League'},
-    {'id': 140, 'name': 'La Liga', 'country': 'Spain', 'logo': 'https://media.api-sports.io/football/leagues/140.png', 'flag': 'https://media.api-sports.io/flags/es.svg', 'season': 2024, 'type': 'League'},
-    {'id': 61, 'name': 'Ligue 1', 'country': 'France', 'logo': 'https://media.api-sports.io/football/leagues/61.png', 'flag': 'https://media.api-sports.io/flags/fr.svg', 'season': 2024, 'type': 'League'},
-    {'id': 78, 'name': 'Bundesliga', 'country': 'Germany', 'logo': 'https://media.api-sports.io/football/leagues/78.png', 'flag': 'https://media.api-sports.io/flags/de.svg', 'season': 2024, 'type': 'League'},
-    {'id': 135, 'name': 'Serie A', 'country': 'Italy', 'logo': 'https://media.api-sports.io/football/leagues/135.png', 'flag': 'https://media.api-sports.io/flags/it.svg', 'season': 2024, 'type': 'League'},
-    {'id': 203, 'name': 'Süper Lig', 'country': 'Turkey', 'logo': 'https://media.api-sports.io/football/leagues/203.png', 'flag': 'https://media.api-sports.io/flags/tr.svg', 'season': 2024, 'type': 'League'},
-    {'id': 2, 'name': 'UEFA Champions League', 'country': 'World', 'logo': 'https://media.api-sports.io/football/leagues/2.png', 'flag': 'https://media.api-sports.io/flags/eu.svg', 'season': 2024, 'type': 'Cup'},
-    {'id': 3, 'name': 'UEFA Europa League', 'country': 'World', 'logo': 'https://media.api-sports.io/football/leagues/3.png', 'flag': 'https://media.api-sports.io/flags/eu.svg', 'season': 2024, 'type': 'Cup'},
+    {'id': 39, 'name': 'Top Lg', 'country': 'Northland', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 140, 'name': 'Iberia Lg', 'country': 'Iberia', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 61, 'name': 'Coastal Lg', 'country': 'Lumière', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 78, 'name': 'Bundle Lg', 'country': 'Eisenland', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 135, 'name': 'Adriatic Lg', 'country': 'Solaria', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 203, 'name': 'Bosporus Lg', 'country': 'Anatoria', 'logo': null, 'flag': null, 'season': 2025, 'type': 'League'},
+    {'id': 2, 'name': 'Cont. Trophy', 'country': 'Continental', 'logo': null, 'flag': null, 'season': 2025, 'type': 'Cup'},
+    {'id': 3, 'name': 'Series Cup', 'country': 'Continental', 'logo': null, 'flag': null, 'season': 2025, 'type': 'Cup'},
   ];
 
   static final List<Map<String, dynamic>> _teams = [
-    {'id': 33, 'name': 'Manchester United', 'logo': 'https://media.api-sports.io/football/teams/33.png', 'country': 'England', 'stadium': 'Old Trafford', 'founded': '1878', 'venue_capacity': 74879},
-    {'id': 50, 'name': 'Manchester City', 'logo': 'https://media.api-sports.io/football/teams/50.png', 'country': 'England', 'stadium': 'Etihad Stadium', 'founded': '1880', 'venue_capacity': 53400},
-    {'id': 40, 'name': 'Liverpool', 'logo': 'https://media.api-sports.io/football/teams/40.png', 'country': 'England', 'stadium': 'Anfield', 'founded': '1892', 'venue_capacity': 53394},
-    {'id': 49, 'name': 'Chelsea', 'logo': 'https://media.api-sports.io/football/teams/49.png', 'country': 'England', 'stadium': 'Stamford Bridge', 'founded': '1905', 'venue_capacity': 40853},
-    {'id': 66, 'name': 'Manchester United', 'logo': 'https://media.api-sports.io/football/teams/66.png', 'country': 'England', 'stadium': 'Old Trafford', 'founded': '1878', 'venue_capacity': 74879},
-    {'id': 47, 'name': 'Tottenham', 'logo': 'https://media.api-sports.io/football/teams/47.png', 'country': 'England', 'stadium': 'Tottenham Hotspur Stadium', 'founded': '1882', 'venue_capacity': 62850},
-    {'id': 157, 'name': 'Real Madrid', 'logo': 'https://media.api-sports.io/football/teams/157.png', 'country': 'Spain', 'stadium': 'Santiago Bernabéu', 'founded': '1902', 'venue_capacity': 81044},
-    {'id': 541, 'name': 'Barcelona', 'logo': 'https://media.api-sports.io/football/teams/541.png', 'country': 'Spain', 'stadium': 'Camp Nou', 'founded': '1899', 'venue_capacity': 99354},
-    {'id': 85, 'name': 'Paris Saint-Germain', 'logo': 'https://media.api-sports.io/football/teams/85.png', 'country': 'France', 'stadium': 'Parc des Princes', 'founded': '1970', 'venue_capacity': 47929},
-    {'id': 165, 'name': 'Bayern Munich', 'logo': 'https://media.api-sports.io/football/teams/165.png', 'country': 'Germany', 'stadium': 'Allianz Arena', 'founded': '1900', 'venue_capacity': 75000},
-    {'id': 109, 'name': 'Juventus', 'logo': 'https://media.api-sports.io/football/teams/109.png', 'country': 'Italy', 'stadium': 'Allianz Stadium', 'founded': '1897', 'venue_capacity': 41507},
-    {'id': 80, 'name': 'Inter Milan', 'logo': 'https://media.api-sports.io/football/teams/80.png', 'country': 'Italy', 'stadium': 'San Siro', 'founded': '1908', 'venue_capacity': 75923},
-    {'id': 645, 'name': 'Fenerbahçe', 'logo': 'https://media.api-sports.io/football/teams/645.png', 'country': 'Turkey', 'stadium': 'Şanlıurfa Şanlıurfa Stadium', 'founded': '1907', 'venue_capacity': 47431},
-    {'id': 611, 'name': 'Galatasaray', 'logo': 'https://media.api-sports.io/football/teams/611.png', 'country': 'Turkey', 'stadium': 'Rams Park', 'founded': '1905', 'venue_capacity': 52278},
-    {'id': 644, 'name': 'Beşiktaş', 'logo': 'https://media.api-sports.io/football/teams/644.png', 'country': 'Turkey', 'stadium': 'Beşiktaş Park', 'founded': '1903', 'venue_capacity': 43172},
+    {'id': 33, 'name': 'Helix', 'logo': null, 'country': 'Northland', 'stadium': 'Northgate Park', 'founded': '1902', 'venue_capacity': 48500},
+    {'id': 50, 'name': 'Atlas', 'logo': null, 'country': 'Northland', 'stadium': 'Riverside Arena', 'founded': '1899', 'venue_capacity': 52000},
+    {'id': 40, 'name': 'Vega', 'logo': null, 'country': 'Northland', 'stadium': 'Harborlight Stadium', 'founded': '1894', 'venue_capacity': 47000},
+    {'id': 49, 'name': 'Nova', 'logo': null, 'country': 'Northland', 'stadium': 'Crown Field', 'founded': '1905', 'venue_capacity': 39800},
+    {'id': 66, 'name': 'Orion', 'logo': null, 'country': 'Northland', 'stadium': 'Highbridge Park', 'founded': '1888', 'venue_capacity': 35200},
+    {'id': 47, 'name': 'Lyra', 'logo': null, 'country': 'Northland', 'stadium': 'Westgate Stadium', 'founded': '1882', 'venue_capacity': 56400},
+    {'id': 157, 'name': 'Solis', 'logo': null, 'country': 'Iberia', 'stadium': 'Solar Plaza', 'founded': '1903', 'venue_capacity': 78000},
+    {'id': 541, 'name': 'Mira', 'logo': null, 'country': 'Iberia', 'stadium': 'Coastal Field', 'founded': '1899', 'venue_capacity': 82000},
+    {'id': 85, 'name': 'Nyx', 'logo': null, 'country': 'Lumière', 'stadium': 'Lumière Arena', 'founded': '1971', 'venue_capacity': 46000},
+    {'id': 165, 'name': 'Polar', 'logo': null, 'country': 'Eisenland', 'stadium': 'Capital Stadium', 'founded': '1901', 'venue_capacity': 71000},
+    {'id': 109, 'name': 'Cygnus', 'logo': null, 'country': 'Solaria', 'stadium': 'Old Boys Field', 'founded': '1898', 'venue_capacity': 41500},
+    {'id': 80, 'name': 'Aris', 'logo': null, 'country': 'Solaria', 'stadium': 'Wolves Den', 'founded': '1908', 'venue_capacity': 73000},
+    {'id': 645, 'name': 'Hawks', 'logo': null, 'country': 'Anatoria', 'stadium': 'Hawk Park', 'founded': '1907', 'venue_capacity': 47200},
+    {'id': 611, 'name': 'Drake', 'logo': null, 'country': 'Anatoria', 'stadium': 'Lion Arena', 'founded': '1905', 'venue_capacity': 52800},
+    {'id': 644, 'name': 'Raven', 'logo': null, 'country': 'Anatoria', 'stadium': 'Eagle Park', 'founded': '1903', 'venue_capacity': 43300},
   ];
 
   static List<LeagueModel> getLeagues() {
@@ -171,12 +176,12 @@ class MockDataService {
 
   static List<MatchEventModel> _generateMatchEvents() {
     return [
-      MatchEventModel(id: 1, type: 'Goal', detail: 'Normal Goal', player: 'Haaland', minute: 23, teamId: 50, teamName: 'Manchester City'),
-      MatchEventModel(id: 2, type: 'Goal', detail: 'Normal Goal', player: 'Foden', minute: 34, teamId: 50, teamName: 'Manchester City'),
-      MatchEventModel(id: 3, type: 'Card', detail: 'Yellow Card', player: 'Rodri', minute: 40, teamId: 50, teamName: 'Manchester City'),
-      MatchEventModel(id: 4, type: 'Goal', detail: 'Normal Goal', player: 'Saka', minute: 56, teamId: 47, teamName: 'Tottenham'),
-      MatchEventModel(id: 5, type: 'subst', detail: 'Substitution', player: 'De Bruyne', assist: 'Foden', minute: 60, teamId: 50, teamName: 'Manchester City'),
-      MatchEventModel(id: 6, type: 'Card', detail: 'Red Card', player: 'Romero', minute: 75, teamId: 47, teamName: 'Tottenham'),
+      MatchEventModel(id: 1, type: 'Goal', detail: 'Normal Goal', player: 'M. Holt', minute: 23, teamId: 50, teamName: 'Atlas'),
+      MatchEventModel(id: 2, type: 'Goal', detail: 'Normal Goal', player: 'Lansing', minute: 34, teamId: 50, teamName: 'Atlas'),
+      MatchEventModel(id: 3, type: 'Card', detail: 'Yellow Card', player: 'Kemper', minute: 40, teamId: 50, teamName: 'Atlas'),
+      MatchEventModel(id: 4, type: 'Goal', detail: 'Normal Goal', player: 'Asher', minute: 56, teamId: 47, teamName: 'Lyra'),
+      MatchEventModel(id: 5, type: 'subst', detail: 'Substitution', player: 'Vance', assist: 'Lansing', minute: 60, teamId: 50, teamName: 'Atlas'),
+      MatchEventModel(id: 6, type: 'Card', detail: 'Red Card', player: 'Halberg', minute: 75, teamId: 47, teamName: 'Lyra'),
     ];
   }
 
@@ -220,8 +225,8 @@ class MockDataService {
 
   static List<LineupPlayerModel> _generatePlayers(int count, int teamId, {bool isSub = false}) {
     final names = isSub
-        ? ['Walker', 'Stones', 'Grealish', 'Doku', 'Phillips', 'Gomez', 'Carson']
-        : ['Ederson', 'Walker', 'Stones', 'Dias', 'Akanji', 'Rodri', 'De Bruyne', 'B Silva', 'Foden', 'Grealish', 'Haaland'];
+        ? ['Lyle', 'Marsh', 'Doran', 'Doku', 'Phillips', 'Gomez', 'Carson']
+        : ['Vyse', 'Lyle', 'Marsh', 'Wagner', 'Ostrov', 'Kemper', 'Vance', 'Rens', 'Lansing', 'Doran', 'M. Holt'];
     
     return List.generate(count, (i) => LineupPlayerModel(
       id: teamId * 100 + i,
@@ -235,9 +240,9 @@ class MockDataService {
     return [
       NewsArticleModel(
         id: '1',
-        title: 'Champions League Final: Real Madrid vs Manchester City Preview',
+        title: 'Top Cup Final: Solis vs Atlas Preview',
         description: 'The most anticipated match of the season is here. Both teams are in top form heading into the final.',
-        content: 'Real Madrid and Manchester City will face off in what promises to be an epic Champions League final...',
+        content: 'Solis and Atlas will face off in what promises to be an epic Continental Cup final...',
         imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
         source: 'Goalyn Sports',
         author: 'John Smith',
@@ -259,11 +264,11 @@ class MockDataService {
       ),
       NewsArticleModel(
         id: '3',
-        title: 'Premier League Title Race Heats Up',
-        description: 'With only a few games remaining, the Premier League title race is reaching its climax.',
-        content: 'The Premier League title race has never been more intense as Arsenal and Manchester City battle for glory...',
+        title: 'Top Flight Title Race Heats Up',
+        description: 'With only a few games remaining, the Top Flight title race is reaching its climax.',
+        content: 'The Top Flight title race has never been more intense as Nova and Atlas battle for glory...',
         imageUrl: 'https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800',
-        source: 'Premier League News',
+        source: 'Top Flight News',
         author: 'Mike Wilson',
         publishedAt: DateTime.now().subtract(const Duration(hours: 8)),
         category: 'premier_league',
@@ -271,11 +276,11 @@ class MockDataService {
       ),
       NewsArticleModel(
         id: '4',
-        title: 'Turkish Football: Fenerbahçe Signs New Star',
-        description: 'Fenerbahçe have completed a major signing that could change the course of the season.',
-        content: 'In a stunning transfer move, Fenerbahçe has secured the signing of one of Turkish football\'s brightest talents...',
+        title: 'Anatorian Football: Hawks Signs New Star',
+        description: 'Hawks have completed a major signing that could change the course of the season.',
+        content: 'In a stunning transfer move, Hawks has secured the signing of one of anatorian football\'s brightest talents...',
         imageUrl: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800',
-        source: 'Süper Lig Daily',
+        source: 'Bosporus Lg Daily',
         author: 'Ahmet Yilmaz',
         publishedAt: DateTime.now().subtract(const Duration(hours: 12)),
         category: 'turkish_football',
@@ -295,11 +300,11 @@ class MockDataService {
       ),
       NewsArticleModel(
         id: '6',
-        title: 'La Liga: Barcelona\'s Road to Recovery',
-        description: 'After a challenging season, Barcelona is showing signs of resurgence.',
-        content: 'Barcelona\'s new young squad is finding their rhythm under Hansi Flick...',
+        title: 'Iberia Lg: Mira\'s Road to Recovery',
+        description: 'After a challenging season, Mira is showing signs of resurgence.',
+        content: 'Mira\'s new young squad is finding their rhythm under the new manager...',
         imageUrl: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=800',
-        source: 'La Liga Weekly',
+        source: 'Iberia Lg Weekly',
         author: 'Pedro Garcia',
         publishedAt: DateTime.now().subtract(const Duration(days: 1, hours: 5)),
         category: 'la_liga',
@@ -346,7 +351,7 @@ class MockDataService {
         goalsAgainst: goalsAgainst,
         goalDifference: goalsFor - goalsAgainst,
         form: _generateForm(),
-        description: i < 4 ? 'Champions League' : (i < 6 ? 'Europa League' : (i > teams.length - 3 ? 'Relegation' : null)),
+        description: i < 4 ? 'Continental Cup' : (i < 6 ? 'Continental Series' : (i > teams.length - 3 ? 'Relegation' : null)),
       ));
     }
 
@@ -373,14 +378,14 @@ class MockDataService {
         goalsAgainst: e.value.goalsAgainst,
         goalDifference: e.value.goalDifference,
         form: e.value.form,
-        description: e.key < 4 ? 'Champions League' : (e.key < 6 ? 'Europa League' : (e.key > teams.length - 3 ? 'Relegation' : null)),
+        description: e.key < 4 ? 'Continental Cup' : (e.key < 6 ? 'Continental Series' : (e.key > teams.length - 3 ? 'Relegation' : null)),
       );
     }).toList();
   }
 
   static List<LineupPlayerModel> getTeamSquad(int teamId) {
     final Map<int, List<Map<String, dynamic>>> squads = {
-      33: [ // Manchester United
+      33: [ // Helix
         {'name': 'André Onana', 'number': 24, 'position': 'G'},
         {'name': 'Tom Heaton', 'number': 22, 'position': 'G'},
         {'name': 'Diogo Dalot', 'number': 20, 'position': 'D'},
@@ -402,29 +407,29 @@ class MockDataService {
         {'name': 'Jadon Sancho', 'number': 25, 'position': 'F'},
         {'name': 'Anthony Martial', 'number': 9, 'position': 'F'},
       ],
-      50: [ // Manchester City
-        {'name': 'Ederson', 'number': 31, 'position': 'G'},
+      50: [ // Atlas
+        {'name': 'Vyse', 'number': 31, 'position': 'G'},
         {'name': 'Stefan Ortega', 'number': 18, 'position': 'G'},
-        {'name': 'Kyle Walker', 'number': 2, 'position': 'D'},
-        {'name': 'John Stones', 'number': 5, 'position': 'D'},
-        {'name': 'Rúben Dias', 'number': 3, 'position': 'D'},
+        {'name': 'Kyle Lyle', 'number': 2, 'position': 'D'},
+        {'name': 'John Marsh', 'number': 5, 'position': 'D'},
+        {'name': 'Rúben Wagner', 'number': 3, 'position': 'D'},
         {'name': 'Nathan Aké', 'number': 6, 'position': 'D'},
-        {'name': 'Manuel Akanji', 'number': 25, 'position': 'D'},
+        {'name': 'Manuel Ostrov', 'number': 25, 'position': 'D'},
         {'name': 'Joško Gvardiol', 'number': 24, 'position': 'D'},
-        {'name': 'Rodri', 'number': 16, 'position': 'M'},
-        {'name': 'Kevin De Bruyne', 'number': 17, 'position': 'M'},
+        {'name': 'Kemper', 'number': 16, 'position': 'M'},
+        {'name': 'Kevin Vance', 'number': 17, 'position': 'M'},
         {'name': 'Bernardo Silva', 'number': 20, 'position': 'M'},
         {'name': 'İlkay Gündoğan', 'number': 8, 'position': 'M'},
         {'name': 'Mateo Kovačić', 'number': 10, 'position': 'M'},
-        {'name': 'Phil Foden', 'number': 47, 'position': 'F'},
-        {'name': 'Erling Haaland', 'number': 9, 'position': 'F'},
-        {'name': 'Jack Grealish', 'number': 10, 'position': 'F'},
+        {'name': 'Phil Lansing', 'number': 47, 'position': 'F'},
+        {'name': 'Marcus Holt', 'number': 9, 'position': 'F'},
+        {'name': 'Jack Doran', 'number': 10, 'position': 'F'},
         {'name': 'Julián Álvarez', 'number': 19, 'position': 'F'},
         {'name': 'Jérémy Doku', 'number': 11, 'position': 'F'},
         {'name': 'Oscar Bobb', 'number': 52, 'position': 'F'},
         {'name': 'Rico Lewis', 'number': 82, 'position': 'D'},
       ],
-      40: [ // Liverpool
+      40: [ // Vega
         {'name': 'Alisson', 'number': 1, 'position': 'G'},
         {'name': 'Caoimhín Kelleher', 'number': 62, 'position': 'G'},
         {'name': 'Trent Alexander-Arnold', 'number': 66, 'position': 'D'},
@@ -439,14 +444,14 @@ class MockDataService {
         {'name': 'Curtis Jones', 'number': 17, 'position': 'M'},
         {'name': 'Wataru Endo', 'number': 3, 'position': 'M'},
         {'name': 'Harvey Elliott', 'number': 19, 'position': 'M'},
-        {'name': 'Mohamed Salah', 'number': 11, 'position': 'F'},
+        {'name': 'Marko Saber', 'number': 11, 'position': 'F'},
         {'name': 'Luis Díaz', 'number': 7, 'position': 'F'},
         {'name': 'Darwin Núñez', 'number': 9, 'position': 'F'},
         {'name': 'Diogo Jota', 'number': 20, 'position': 'F'},
         {'name': 'Cody Gakpo', 'number': 18, 'position': 'F'},
         {'name': 'Ben Doak', 'number': 50, 'position': 'F'},
       ],
-      157: [ // Real Madrid
+      157: [ // Solis
         {'name': 'Thibaut Courtois', 'number': 1, 'position': 'G'},
         {'name': 'Andriy Lunin', 'number': 13, 'position': 'G'},
         {'name': 'Dani Carvajal', 'number': 2, 'position': 'D'},
@@ -455,7 +460,7 @@ class MockDataService {
         {'name': 'Antonio Rüdiger', 'number': 22, 'position': 'D'},
         {'name': 'David Alaba', 'number': 4, 'position': 'D'},
         {'name': 'Nacho', 'number': 6, 'position': 'D'},
-        {'name': 'Jude Bellingham', 'number': 5, 'position': 'M'},
+        {'name': 'Jonas Brent', 'number': 5, 'position': 'M'},
         {'name': 'Luka Modrić', 'number': 10, 'position': 'M'},
         {'name': 'Toni Kroos', 'number': 8, 'position': 'M'},
         {'name': 'Eduardo Camavinga', 'number': 12, 'position': 'M'},
@@ -468,7 +473,7 @@ class MockDataService {
         {'name': 'Arda Güler', 'number': 24, 'position': 'F'},
         {'name': 'Lucas Vázquez', 'number': 17, 'position': 'D'},
       ],
-      541: [ // Barcelona
+      541: [ // Mira
         {'name': 'Marc-André ter Stegen', 'number': 1, 'position': 'G'},
         {'name': 'Iñaki Peña', 'number': 13, 'position': 'G'},
         {'name': 'Jules Koundé', 'number': 23, 'position': 'D'},
@@ -483,7 +488,7 @@ class MockDataService {
         {'name': 'Fermín López', 'number': 16, 'position': 'M'},
         {'name': 'Ilkay Gündoğan', 'number': 22, 'position': 'M'},
         {'name': 'Lamine Yamal', 'number': 19, 'position': 'F'},
-        {'name': 'Robert Lewandowski', 'number': 9, 'position': 'F'},
+        {'name': 'Roman Krieger', 'number': 9, 'position': 'F'},
         {'name': 'Raphinha', 'number': 11, 'position': 'F'},
         {'name': 'João Félix', 'number': 14, 'position': 'F'},
         {'name': 'Ferran Torres', 'number': 7, 'position': 'F'},
@@ -622,77 +627,77 @@ class MockDataService {
 
   static List<Map<String, dynamic>> getTopScorers(int leagueId) {
     final Map<int, List<Map<String, dynamic>>> scorersByLeague = {
-      39: [ // Premier League
-        {'player': 'Erling Haaland', 'team': 'Manchester City', 'team_logo': 'https://media.api-sports.io/football/teams/50.png', 'goals': 27, 'assists': 5},
-        {'player': 'Mohamed Salah', 'team': 'Liverpool', 'team_logo': 'https://media.api-sports.io/football/teams/40.png', 'goals': 19, 'assists': 12},
-        {'player': 'Phil Foden', 'team': 'Manchester City', 'team_logo': 'https://media.api-sports.io/football/teams/50.png', 'goals': 17, 'assists': 8},
-        {'player': 'Son Heung-min', 'team': 'Tottenham', 'team_logo': 'https://media.api-sports.io/football/teams/47.png', 'goals': 16, 'assists': 7},
-        {'player': 'Cole Palmer', 'team': 'Chelsea', 'team_logo': 'https://media.api-sports.io/football/teams/49.png', 'goals': 15, 'assists': 10},
+      39: [ // Top Flight
+        {'player': 'Marcus Holt', 'team': 'Atlas', 'team_logo': 'https://media.api-sports.io/football/teams/50.png', 'goals': 27, 'assists': 5},
+        {'player': 'Marko Saber', 'team': 'Vega', 'team_logo': 'https://media.api-sports.io/football/teams/40.png', 'goals': 19, 'assists': 12},
+        {'player': 'Phil Lansing', 'team': 'Atlas', 'team_logo': 'https://media.api-sports.io/football/teams/50.png', 'goals': 17, 'assists': 8},
+        {'player': 'Son Heung-min', 'team': 'Lyra', 'team_logo': 'https://media.api-sports.io/football/teams/47.png', 'goals': 16, 'assists': 7},
+        {'player': 'Cole Palmer', 'team': 'Nova', 'team_logo': 'https://media.api-sports.io/football/teams/49.png', 'goals': 15, 'assists': 10},
         {'player': 'Alexander Isak', 'team': 'Newcastle', 'team_logo': 'https://media.api-sports.io/football/teams/34.png', 'goals': 14, 'assists': 4},
         {'player': 'Ollie Watkins', 'team': 'Aston Villa', 'team_logo': 'https://media.api-sports.io/football/teams/66.png', 'goals': 13, 'assists': 9},
-        {'player': 'Bruno Fernandes', 'team': 'Manchester United', 'team_logo': 'https://media.api-sports.io/football/teams/33.png', 'goals': 12, 'assists': 8},
-        {'player': 'Bukayo Saka', 'team': 'Arsenal', 'team_logo': 'https://media.api-sports.io/football/teams/42.png', 'goals': 12, 'assists': 11},
-        {'player': 'Dominic Solanke', 'team': 'Tottenham', 'team_logo': 'https://media.api-sports.io/football/teams/47.png', 'goals': 11, 'assists': 3},
+        {'player': 'Bruno Fernandes', 'team': 'Helix', 'team_logo': 'https://media.api-sports.io/football/teams/33.png', 'goals': 12, 'assists': 8},
+        {'player': 'Bukayo Saka', 'team': 'Nova', 'team_logo': 'https://media.api-sports.io/football/teams/42.png', 'goals': 12, 'assists': 11},
+        {'player': 'Dominic Solanke', 'team': 'Lyra', 'team_logo': 'https://media.api-sports.io/football/teams/47.png', 'goals': 11, 'assists': 3},
       ],
-      140: [ // La Liga
-        {'player': 'Robert Lewandowski', 'team': 'Barcelona', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 23, 'assists': 6},
-        {'player': 'Jude Bellingham', 'team': 'Real Madrid', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 19, 'assists': 7},
-        {'player': 'Vinícius Jr.', 'team': 'Real Madrid', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 16, 'assists': 9},
-        {'player': 'Lamine Yamal', 'team': 'Barcelona', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 14, 'assists': 11},
+      140: [ // Iberia Lg
+        {'player': 'Roman Krieger', 'team': 'Mira', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 23, 'assists': 6},
+        {'player': 'Jonas Brent', 'team': 'Solis', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 19, 'assists': 7},
+        {'player': 'Vinícius Jr.', 'team': 'Solis', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 16, 'assists': 9},
+        {'player': 'Lamine Yamal', 'team': 'Mira', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 14, 'assists': 11},
         {'player': 'Antoine Griezmann', 'team': 'Atlético Madrid', 'team_logo': 'https://media.api-sports.io/football/teams/530.png', 'goals': 13, 'assists': 6},
         {'player': 'Artem Dovbyk', 'team': 'Girona', 'team_logo': 'https://media.api-sports.io/football/teams/547.png', 'goals': 12, 'assists': 4},
         {'player': 'Alexander Sørloth', 'team': 'Villarreal', 'team_logo': 'https://media.api-sports.io/football/teams/533.png', 'goals': 11, 'assists': 3},
-        {'player': 'Raphinha', 'team': 'Barcelona', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 10, 'assists': 8},
+        {'player': 'Raphinha', 'team': 'Mira', 'team_logo': 'https://media.api-sports.io/football/teams/541.png', 'goals': 10, 'assists': 8},
         {'player': 'Álvaro Morata', 'team': 'Atlético Madrid', 'team_logo': 'https://media.api-sports.io/football/teams/530.png', 'goals': 10, 'assists': 5},
-        {'player': 'Rodrygo', 'team': 'Real Madrid', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 9, 'assists': 7},
+        {'player': 'Rodrygo', 'team': 'Solis', 'team_logo': 'https://media.api-sports.io/football/teams/157.png', 'goals': 9, 'assists': 7},
       ],
-      135: [ // Serie A
-        {'player': 'Lautaro Martínez', 'team': 'Inter Milan', 'team_logo': 'https://media.api-sports.io/football/teams/80.png', 'goals': 24, 'assists': 5},
-        {'player': 'Dušan Vlahović', 'team': 'Juventus', 'team_logo': 'https://media.api-sports.io/football/teams/109.png', 'goals': 16, 'assists': 4},
+      135: [ // Adriatic Lg
+        {'player': 'Lautaro Martínez', 'team': 'Aris', 'team_logo': 'https://media.api-sports.io/football/teams/80.png', 'goals': 24, 'assists': 5},
+        {'player': 'Dušan Vlahović', 'team': 'Cygnus', 'team_logo': 'https://media.api-sports.io/football/teams/109.png', 'goals': 16, 'assists': 4},
         {'player': 'Victor Osimhen', 'team': 'Napoli', 'team_logo': 'https://media.api-sports.io/football/teams/492.png', 'goals': 15, 'assists': 3},
         {'player': 'Olivier Giroud', 'team': 'AC Milan', 'team_logo': 'https://media.api-sports.io/football/teams/489.png', 'goals': 14, 'assists': 5},
-        {'player': 'Marcus Thuram', 'team': 'Inter Milan', 'team_logo': 'https://media.api-sports.io/football/teams/80.png', 'goals': 13, 'assists': 7},
+        {'player': 'Marcus Thuram', 'team': 'Aris', 'team_logo': 'https://media.api-sports.io/football/teams/80.png', 'goals': 13, 'assists': 7},
         {'player': 'Paulo Dybala', 'team': 'Roma', 'team_logo': 'https://media.api-sports.io/football/teams/497.png', 'goals': 11, 'assists': 6},
         {'player': 'Ademola Lookman', 'team': 'Atalanta', 'team_logo': 'https://media.api-sports.io/football/teams/499.png', 'goals': 11, 'assists': 5},
         {'player': 'Rafael Leão', 'team': 'AC Milan', 'team_logo': 'https://media.api-sports.io/football/teams/489.png', 'goals': 10, 'assists': 9},
         {'player': 'Khvicha Kvaratskhelia', 'team': 'Napoli', 'team_logo': 'https://media.api-sports.io/football/teams/492.png', 'goals': 10, 'assists': 8},
         {'player': 'Ciro Immobile', 'team': 'Lazio', 'team_logo': 'https://media.api-sports.io/football/teams/487.png', 'goals': 9, 'assists': 4},
       ],
-      78: [ // Bundesliga
-        {'player': 'Harry Kane', 'team': 'Bayern Munich', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 30, 'assists': 9},
+      78: [ // Bundle Lg
+        {'player': 'Harry Kane', 'team': 'Polar', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 30, 'assists': 9},
         {'player': 'Serhou Guirassy', 'team': 'Stuttgart', 'team_logo': 'https://media.api-sports.io/football/teams/172.png', 'goals': 22, 'assists': 4},
         {'player': 'Loïs Openda', 'team': 'RB Leipzig', 'team_logo': 'https://media.api-sports.io/football/teams/173.png', 'goals': 18, 'assists': 6},
-        {'player': 'Leroy Sané', 'team': 'Bayern Munich', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 14, 'assists': 10},
+        {'player': 'Leroy Sané', 'team': 'Polar', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 14, 'assists': 10},
         {'player': 'Florian Wirtz', 'team': 'Bayer Leverkusen', 'team_logo': 'https://media.api-sports.io/football/teams/168.png', 'goals': 13, 'assists': 11},
         {'player': 'Niclas Füllkrug', 'team': 'Borussia Dortmund', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 12, 'assists': 5},
-        {'player': 'Thomas Müller', 'team': 'Bayern Munich', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 11, 'assists': 8},
-        {'player': 'Jamal Musiala', 'team': 'Bayern Munich', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 10, 'assists': 7},
+        {'player': 'Thomas Müller', 'team': 'Polar', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 11, 'assists': 8},
+        {'player': 'Jamal Musiala', 'team': 'Polar', 'team_logo': 'https://media.api-sports.io/football/teams/165.png', 'goals': 10, 'assists': 7},
         {'player': 'Victor Boniface', 'team': 'Bayer Leverkusen', 'team_logo': 'https://media.api-sports.io/football/teams/168.png', 'goals': 10, 'assists': 5},
         {'player': 'Deniz Undav', 'team': 'Stuttgart', 'team_logo': 'https://media.api-sports.io/football/teams/172.png', 'goals': 9, 'assists': 6},
       ],
       61: [ // Ligue 1
-        {'player': 'Kylian Mbappé', 'team': 'Paris Saint-Germain', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 25, 'assists': 8},
+        {'player': 'Kylian Mbappé', 'team': 'Nyx', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 25, 'assists': 8},
         {'player': 'Jonathan David', 'team': 'Lille', 'team_logo': 'https://media.api-sports.io/football/teams/79.png', 'goals': 17, 'assists': 4},
         {'player': 'Alexandre Lacazette', 'team': 'Lyon', 'team_logo': 'https://media.api-sports.io/football/teams/80.png', 'goals': 15, 'assists': 5},
         {'player': 'Pierre-Emerick Aubameyang', 'team': 'Marseille', 'team_logo': 'https://media.api-sports.io/football/teams/81.png', 'goals': 14, 'assists': 3},
-        {'player': 'Ousmane Dembélé', 'team': 'Paris Saint-Germain', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 12, 'assists': 10},
+        {'player': 'Ousmane Dembélé', 'team': 'Nyx', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 12, 'assists': 10},
         {'player': 'Wissam Ben Yedder', 'team': 'Monaco', 'team_logo': 'https://media.api-sports.io/football/teams/91.png', 'goals': 11, 'assists': 4},
         {'player': 'Elye Wahi', 'team': 'Lens', 'team_logo': 'https://media.api-sports.io/football/teams/116.png', 'goals': 10, 'assists': 3},
-        {'player': 'Randal Kolo Muani', 'team': 'Paris Saint-Germain', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 10, 'assists': 6},
+        {'player': 'Randal Kolo Muani', 'team': 'Nyx', 'team_logo': 'https://media.api-sports.io/football/teams/85.png', 'goals': 10, 'assists': 6},
         {'player': 'Terem Moffi', 'team': 'Nice', 'team_logo': 'https://media.api-sports.io/football/teams/84.png', 'goals': 9, 'assists': 2},
         {'player': 'Folarin Balogun', 'team': 'Monaco', 'team_logo': 'https://media.api-sports.io/football/teams/91.png', 'goals': 8, 'assists': 5},
       ],
-      203: [ // Süper Lig
-        {'player': 'Mauro Icardi', 'team': 'Galatasaray', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 22, 'assists': 5},
-        {'player': 'Edin Džeko', 'team': 'Fenerbahçe', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 18, 'assists': 7},
-        {'player': 'Cenk Tosun', 'team': 'Beşiktaş', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 14, 'assists': 3},
-        {'player': 'Michy Batshuayi', 'team': 'Fenerbahçe', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 12, 'assists': 4},
-        {'player': 'Dries Mertens', 'team': 'Galatasaray', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 11, 'assists': 9},
-        {'player': 'Fred', 'team': 'Fenerbahçe', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 10, 'assists': 6},
-        {'player': 'Wilfried Zaha', 'team': 'Galatasaray', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 9, 'assists': 5},
-        {'player': 'Rachid Ghezzal', 'team': 'Beşiktaş', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 8, 'assists': 7},
-        {'player': 'Ciro Immobile', 'team': 'Beşiktaş', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 8, 'assists': 3},
-        {'player': 'Kerem Aktürkoğlu', 'team': 'Galatasaray', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 7, 'assists': 8},
+      203: [ // Bosporus Lg
+        {'player': 'Mauro Icardi', 'team': 'Drake', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 22, 'assists': 5},
+        {'player': 'Edin Džeko', 'team': 'Hawks', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 18, 'assists': 7},
+        {'player': 'Cenk Tosun', 'team': 'Raven', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 14, 'assists': 3},
+        {'player': 'Michy Batshuayi', 'team': 'Hawks', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 12, 'assists': 4},
+        {'player': 'Dries Mertens', 'team': 'Drake', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 11, 'assists': 9},
+        {'player': 'Fred', 'team': 'Hawks', 'team_logo': 'https://media.api-sports.io/football/teams/645.png', 'goals': 10, 'assists': 6},
+        {'player': 'Wilfried Zaha', 'team': 'Drake', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 9, 'assists': 5},
+        {'player': 'Rachid Ghezzal', 'team': 'Raven', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 8, 'assists': 7},
+        {'player': 'Ciro Immobile', 'team': 'Raven', 'team_logo': 'https://media.api-sports.io/football/teams/644.png', 'goals': 8, 'assists': 3},
+        {'player': 'Kerem Aktürkoğlu', 'team': 'Drake', 'team_logo': 'https://media.api-sports.io/football/teams/611.png', 'goals': 7, 'assists': 8},
       ],
     };
 

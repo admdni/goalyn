@@ -1,0 +1,16 @@
+Goalyn is a clean, magazine-style scoreboard for football fans. It collects fixtures, your private predictions, kickoff reminders, and personal match notes in one calm, well-typeset place.
+
+Features
+‧ Score Diary: today's, upcoming, and finished fixtures, organized by competition with crisp typography that's a pleasure to skim.
+‧ Personal Predictions: record your scoreline before kickoff, log the actual result afterwards, and watch your accuracy and streaks build over time.
+‧ Match Notebook: jot down a private note on any match — formations, key players, tactical takeaways, anything you want to remember.
+‧ Kickoff Reminders: opt-in local notifications nudge you 15 minutes before the matches you care about.
+‧ Saved Library: bookmark the teams, matches, and competitions you follow, all in one place.
+‧ Light & Dark Themes: an editorial light theme on warm cream paper, plus a deep ink dark mode. Toggle from the home masthead.
+‧ Bilingual UI: Traditional and Simplified Chinese available out of the box.
+
+Design philosophy
+We took our cues from print magazines: bold serif headlines, tabular score figures, hairline rules, and generous whitespace. Information is dense but stays easy on the eye. Every feature works offline; no third-party login is required, and your predictions and notes never leave your device.
+
+Important note
+Goalyn is a personal organizer for fans. It does not stream live video, does not provide betting features, and does not use real-time match data feeds. For the latest official information, consult the relevant club and competition organizers.

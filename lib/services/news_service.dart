@@ -8,24 +8,25 @@ class NewsService {
     receiveTimeout: const Duration(seconds: 15),
   ));
 
+  // Generic feed search hints — no third-party league/event names.
   static const _categoriesEn = {
     'all': 'football soccer',
     'transfers': 'football transfer news',
-    'premier_league': 'Premier League',
-    'champions_league': 'Champions League UEFA',
-    'la_liga': 'La Liga Spain football',
-    'turkish_football': 'Süper Lig Turkish football',
-    'world_football': 'FIFA World Cup football',
+    'premier_league': 'top flight football',
+    'champions_league': 'continental club football',
+    'la_liga': 'iberic football',
+    'turkish_football': 'anatorian football',
+    'world_football': 'international football',
   };
 
   static const _categoriesZh = {
     'all': '足球 比赛',
     'transfers': '足球 转会 新闻',
-    'premier_league': '英超联赛',
-    'champions_league': '欧冠联赛 UEFA',
-    'la_liga': '西甲联赛',
-    'turkish_football': '土耳其足球 超级联赛',
-    'world_football': '世界杯 FIFA 足球',
+    'premier_league': '顶级联赛',
+    'champions_league': '洲际杯赛',
+    'la_liga': '伊比利亚足球',
+    'turkish_football': '安纳托利亚足球',
+    'world_football': '国际足球',
   };
 
   static const _localeConfig = {
