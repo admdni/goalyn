@@ -98,7 +98,25 @@ platform :ios do
       skip_metadata: false,
       skip_app_version_update: true,
       precheck_include_in_app_purchases: false,
-      languages: ["zh-Hant", "zh-Hans"],
+      languages: ["en-US", "zh-Hant", "zh-Hans"],
+      run_precheck_before_submit: false,
+    )
+  end
+
+  desc "Push App Store screenshots only (separate from text metadata)"
+  lane :upload_screenshots do
+    api_key = load_api_key
+    deliver(
+      api_key: api_key,
+      submit_for_review: false,
+      force: true,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_screenshots: false,
+      skip_app_version_update: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      languages: ["en-US"],
       run_precheck_before_submit: false,
     )
   end

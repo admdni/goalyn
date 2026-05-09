@@ -1,1 +1,17 @@
-Goalyn is an offline-first personal scoreboard for football fans. The app does not require any login, does not stream live video, does not include any IAPs, and does not transmit user data to third-party servers. All predictions and notes are stored locally on the device using Hive. Reviewers can launch the app, complete the brief onboarding (no real account required), and explore every feature without credentials.
+Hello App Review Team,
+
+This is a fresh submission of our football scoreboard app under a new bundle identifier (com.tanaltay.goalyn.app). We are resubmitting because our previous submission (under com.tanaltay.goalyn) appeared to remain stuck in the queue and never moved into review, so we have created a new App Store record from scratch.
+
+A few important points about this build:
+
+1. All team and competition names shown inside the app are entirely FICTIONAL ("Northgate Athletic", "Riverside United", "Solar City", "Coastal Lions", "Northern Premier Division", "Continental Champions Trophy", etc.). No real-world clubs, leagues, tournaments, or third-party brands are referenced anywhere in the app, screenshots, or store metadata.
+
+2. The app does not stream live video, does not provide betting/odds features, and does not collect or transmit any user data to third-party servers. All predictions, notes, and reminders are stored locally on the device using Hive.
+
+3. No login or account is required. Reviewers can launch the app, complete the brief onboarding flow with any nickname, and explore every feature (Score Diary, Personal Predictions, Match Notebook, Kickoff Reminders, Saved Library, Theme Toggle) without any credentials.
+
+4. The app has a simple, magazine-style typographic UI. There are no third-party logos, photographs, or copyrighted imagery anywhere. Screenshots demonstrate the same clean, fictional sample data.
+
+5. Privacy practices: data not collected. The privacy policy and support pages are available at https://goalyn.netlify.app/.
+
+If anything in the metadata, screenshots, or runtime experience needs clarification, please reply through Resolution Center and we will respond promptly. Thank you for your time.

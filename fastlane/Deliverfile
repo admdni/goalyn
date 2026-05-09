@@ -1,4 +1,4 @@
-app_identifier("com.tanaltay.goalyn")
+app_identifier("com.tanaltay.goalyn.app")
 
 # Where the metadata files live.
 metadata_path("./fastlane/metadata")

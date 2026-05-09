@@ -15,14 +15,24 @@ import urllib.error
 import jwt
 
 
-KEY_ID = '249G24VRT6'
-ISSUER_ID = '05481e43-1010-4891-b4ec-68befd43ade4'
-APP_ID = '6767691750'
+import os
+
+KEY_ID = os.environ.get('APP_STORE_CONNECT_KEY_IDENTIFIER', '249G24VRT6')
+ISSUER_ID = os.environ.get(
+    'APP_STORE_CONNECT_ISSUER_ID', '05481e43-1010-4891-b4ec-68befd43ade4'
+)
+BUNDLE_ID = os.environ.get('BUNDLE_ID', 'com.tanaltay.goalyn.app')
 
 ROOT = Path(__file__).resolve().parent.parent
-KEY_PATH = ROOT / f'AuthKey_{KEY_ID}.p8'
+# In Codemagic the p8 is restored to ~/.appstoreconnect/private_keys.
+# Locally it sits in the project root.
+_LOCAL_KEY = ROOT / f'AuthKey_{KEY_ID}.p8'
+_CI_KEY = Path.home() / '.appstoreconnect' / 'private_keys' / f'AuthKey_{KEY_ID}.p8'
+KEY_PATH = _CI_KEY if _CI_KEY.exists() else _LOCAL_KEY
 META = ROOT / 'fastlane' / 'metadata'
 API = 'https://api.appstoreconnect.apple.com/v1'
+
+_PRIVATE_KEY_ENV = os.environ.get('APP_STORE_CONNECT_PRIVATE_KEY')
 
 # App Store Connect locale codes used by the metadata folder names.
 LOCALES = {
@@ -30,6 +40,16 @@ LOCALES = {
     'zh-Hant': 'zh-Hant',
     'zh-Hans': 'zh-Hans',
 }
+
+
+def _read_key_text():
+    """Prefer p8 file on disk; fall back to APP_STORE_CONNECT_PRIVATE_KEY env."""
+    if KEY_PATH.exists():
+        return KEY_PATH.read_text()
+    if _PRIVATE_KEY_ENV:
+        # Codemagic stores secrets with literal "\n"; normalise back.
+        return _PRIVATE_KEY_ENV.replace('\\n', '\n')
+    raise RuntimeError(f"No App Store Connect key found at {KEY_PATH} or env")
 
 
 def make_token():
@@ -40,10 +60,18 @@ def make_token():
             'exp': int(time.time() + 1200),
             'aud': 'appstoreconnect-v1',
         },
-        KEY_PATH.read_text(),
+        _read_key_text(),
         algorithm='ES256',
         headers={'kid': KEY_ID, 'typ': 'JWT'},
     )
+
+
+def resolve_app_id(token):
+    """Look up the App Store Connect app id by bundle identifier."""
+    code, body = request('GET', f'/apps?filter[bundleId]={BUNDLE_ID}', token)
+    if code == 200 and body.get('data'):
+        return body['data'][0]['id']
+    raise RuntimeError(f"App with bundle id {BUNDLE_ID} not found ({code})")
 
 
 def req(method, path, token, body=None):
@@ -70,8 +98,8 @@ def read_meta(folder, file):
     return p.read_text().strip() if p.exists() else None
 
 
-def get_app_info(token):
-    code, body = req('GET', f'/apps/{APP_ID}/appInfos', token)
+def get_app_info(token, app_id):
+    code, body = req('GET', f'/apps/{app_id}/appInfos', token)
     if code != 200 or not body.get('data'):
         print(f"[appInfo] failed: {code} {body}")
         sys.exit(1)
@@ -116,8 +144,8 @@ def upsert_app_info_localization(token, app_info_id, existing, locale, name, sub
         print(f"[appInfo:{locale}] FAILED {code}: {json.dumps(body)[:300]}")
 
 
-def get_editable_version(token):
-    code, body = req('GET', f'/apps/{APP_ID}/appStoreVersions?filter[platform]=IOS', token)
+def get_editable_version(token, app_id):
+    code, body = req('GET', f'/apps/{app_id}/appStoreVersions?filter[platform]=IOS', token)
     if code != 200:
         return None
     versions = body.get('data', [])
@@ -170,7 +198,10 @@ def upsert_version_localization(token, version_id, existing, locale, attributes)
 def main():
     token = make_token()
 
-    app_info_id = get_app_info(token)
+    app_id = resolve_app_id(token)
+    print(f"[app] resolved id={app_id} for bundle {BUNDLE_ID}")
+
+    app_info_id = get_app_info(token, app_id)
     print(f"[appInfo] id={app_info_id}")
     existing_info = list_app_info_localizations(token, app_info_id)
 
@@ -180,7 +211,7 @@ def main():
         if name and subtitle:
             upsert_app_info_localization(token, app_info_id, existing_info, locale, name, subtitle)
 
-    version = get_editable_version(token)
+    version = get_editable_version(token, app_id)
     if not version:
         print("[version] no editable version — only app-level metadata pushed")
         return

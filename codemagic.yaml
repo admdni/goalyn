@@ -5,8 +5,8 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       vars:
-        APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
-        BUNDLE_ID: "com.tanaltay.goalyn"
+        APP_STORE_APPLE_ID: "com.tanaltay.goalyn.app"
+        BUNDLE_ID: "com.tanaltay.goalyn.app"
         XCODE_WORKSPACE: "Runner.xcworkspace"
         XCODE_SCHEME: "Runner"
       groups:
@@ -107,6 +107,20 @@ workflows:
           xcrun altool --upload-app --type ios -f "$IPA_FILE" \
             --apiKey "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
             --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" --verbose 2>&1 | tail -80
+      - name: Push metadata + screenshots via Fastlane
+        script: |
+          set -e
+          # Restore p8 — Fastfile's load_api_key lane reads it from disk.
+          mkdir -p ~/.appstoreconnect/private_keys
+          P8="$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_IDENTIFIER}.p8"
+          if [ ! -f "$P8" ]; then
+            python3 -c "import os, sys; v=os.environ['APP_STORE_CONNECT_PRIVATE_KEY'].replace('\\\\n','\\n'); open(sys.argv[1],'w').write(v)" "$P8"
+            chmod 600 "$P8"
+          fi
+          export APP_STORE_CONNECT_API_KEY_PATH="$P8"
+          # Codemagic mac instance ships fastlane already; no install needed.
+          fastlane ios upload_metadata || echo "metadata upload step warned"
+          fastlane ios upload_screenshots || echo "screenshot upload step warned"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -117,8 +131,8 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       vars:
-        APP_STORE_APPLE_ID: "com.tanaltay.goalyn"
-        BUNDLE_ID: "com.tanaltay.goalyn"
+        APP_STORE_APPLE_ID: "com.tanaltay.goalyn.app"
+        BUNDLE_ID: "com.tanaltay.goalyn.app"
         LANG: "en_US.UTF-8"
       groups:
         - app_store_credentials

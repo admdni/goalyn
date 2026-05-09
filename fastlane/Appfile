@@ -1,4 +1,4 @@
-app_identifier("com.tanaltay.goalyn")
+app_identifier("com.tanaltay.goalyn.app")
 team_id("LFHCZQT89K")
 
 # App Store Connect API key — credentials supplied via environment in CI.
